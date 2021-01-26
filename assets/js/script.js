@@ -11,16 +11,20 @@ var $searchButton = $("#search-button");
 function fetchWeatherMain(cityName){
     console.log(cityName);
     var apiKey = 'c50cfa9857ec1e54321df1ab3b472201'
-    //NOTE: this can be more specific, but we are only returning the MOST RELEVANT CITY
+    //NOTE: this can be more specific, but we are only returning the top result
     var apiURL = "http://api.openweathermap.org/geo/1.0/direct?q="+cityName+"&limit=1&appid="+apiKey
 
     $.ajax({
         method:'GET',
         url:apiURL,
     }).then(function(data){
-        console.log("success");
-        console.log(data);
-        buttonFactory(cityName)
+        if(data.length){
+            console.log("success");
+            console.log(data);
+            buttonFactory(cityName)
+        }else{
+            console.log("Not a real city.")
+        }
     },function(obj,status,error){
         console.log("failure");
         console.log(obj);
@@ -47,7 +51,10 @@ function buttonFactory(buttonVal){
 $("#search-button").on("click",function(event){
     event.preventDefault()
     var cityName = $("#city-serach").val()
-    fetchWeatherMain(cityName)
+    $("#city-serach").val("") //empty the search text box
+    if(cityName){ //prevent empty string
+        fetchWeatherMain(cityName)
+    }
 });
 
 $(".search-log").on("click","button",function(){
