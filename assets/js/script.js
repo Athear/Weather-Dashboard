@@ -5,6 +5,11 @@ var $serachText = $("#city-serach");
 var $searchButton = $("#search-button");
 
 
+function fetchWeather(cityName){
+    console.log(cityName);
+}
+
+
 function buttonFactory(buttonVal){
     newButton = $("<button>");
     newButton.attr("data-city-name",buttonVal);
@@ -21,6 +26,11 @@ function buttonFactory(buttonVal){
 
 $("#search-button").on("click",function(event){
     event.preventDefault()
-    console.log($("#city-serach").val())
-    buttonFactory($("#city-serach").val())
+    var cityName = $("#city-serach").val()
+    buttonFactory(cityName)
+    fetchWeather(cityName)
 });
+
+$(".search-log").on("click","button",function(){
+    fetchWeather($(this).data("city-name"));
+})
