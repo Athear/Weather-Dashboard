@@ -1,0 +1,11 @@
+.weather-card{
+    width:19%;
+    display:inline-block
+}
+
+@media only screen and (max-width:768px){
+    .weather-card{
+        width:100%;
+        display:block
+    }
+}
