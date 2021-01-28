@@ -64,7 +64,7 @@ function fetchWeatherData(lat,lon){
 
 function buttonFactory(buttonVal){
     //check if button already exists
-    if($("[data-city-name="+buttonVal+"]").length){
+    if(!$("[data-city-name="+buttonVal+"]").length){
 
         newButton = $("<button>");
         newButton.attr("data-city-name",buttonVal);
