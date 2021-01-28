@@ -7,23 +7,25 @@ var $serachText = $("#city-serach");
 var $searchButton = $("#search-button");
 //api key
 //c50cfa9857ec1e54321df1ab3b472201
+var apiKey = 'c50cfa9857ec1e54321df1ab3b472201'
 
 function fetchWeatherMain(cityName){
     console.log(cityName);
-    var apiKey = 'c50cfa9857ec1e54321df1ab3b472201'
+    
     //NOTE: this can be more specific, but we are only returning the top result
-    var apiURL = "http://api.openweathermap.org/geo/1.0/direct?q="+cityName+"&limit=1&appid="+apiKey
+    var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q="+cityName+"&limit=1&appid="+apiKey
 
     $.ajax({
         method:'GET',
-        url:apiURL,
+        url:geoApiURL,
     }).then(function(data){
         if(data.length){
             console.log("success");
             console.log(data);
-            buttonFactory(cityName)
+            buttonFactory(cityName);
+            fetchWeatherData(data[0].lat,data[0].lon);
         }else{
-            console.log("Not a real city.")
+            alert("No city '"+cityName+"' was found")
         }
     },function(obj,status,error){
         console.log("failure");
@@ -32,6 +34,24 @@ function fetchWeatherMain(cityName){
         console.log(error);
     })
 }
+
+fetchWeatherData(lat,lon){
+
+    var apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude={part}&appid="+apiKey
+
+    $.ajax({
+        method:'GET',
+        url:apiURL,
+    }).then(function(data){
+        console.log(data);
+    },function(obj,status,error){
+        console.log("failure");
+        console.log(obj);
+        console.log(status);
+        console.log(error);
+    })
+}
+
 
 
 function buttonFactory(buttonVal){
