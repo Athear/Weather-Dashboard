@@ -10,8 +10,7 @@ var $searchButton = $("#search-button");
 var apiKey = 'c50cfa9857ec1e54321df1ab3b472201'
 
 function fetchWeatherMain(cityName){
-    console.log(cityName);
-    
+  
     //NOTE: this can be more specific, but we are only returning the top result
     var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q="+cityName+"&limit=1&appid="+apiKey
 
@@ -20,9 +19,9 @@ function fetchWeatherMain(cityName){
         url:geoApiURL,
     }).then(function(data){
         if(data.length){
-            console.log("success");
-            console.log(data);
-            buttonFactory(cityName);
+            // console.log(data);
+            buttonFactory(data[0].name);
+            $("#city-name").text(data[0].name);
             fetchWeatherData(data[0].lat,data[0].lon);
         }else{
             alert("No city '"+cityName+"' was found")
@@ -35,15 +34,24 @@ function fetchWeatherMain(cityName){
     })
 }
 
-fetchWeatherData(lat,lon){
+function fetchWeatherData(lat,lon){
 
-    var apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude={part}&appid="+apiKey
+    var apiURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly,alerts&units=imperial&appid="+apiKey
 
     $.ajax({
         method:'GET',
         url:apiURL,
     }).then(function(data){
         console.log(data);
+
+        //Current weather
+        var currentWeather = data.current
+
+        $("#temp-span").text(currentWeather.temp)
+        $("#humidity-span").text(currentWeather.humidity)
+        $("#wind-span").text(currentWeather.wind_speed)
+        $("#uv-span").text(currentWeather.uvi)
+
     },function(obj,status,error){
         console.log("failure");
         console.log(obj);
@@ -55,17 +63,21 @@ fetchWeatherData(lat,lon){
 
 
 function buttonFactory(buttonVal){
-    newButton = $("<button>");
-    newButton.attr("data-city-name",buttonVal);
-    newButton.text(buttonVal);
+    //check if button already exists
+    if($("[data-city-name="+buttonVal+"]").length){
 
-    //layout elements
-    newRow = $("<div class='row'>");
-    newCol = $("<div class='col-sm-12'>");
+        newButton = $("<button>");
+        newButton.attr("data-city-name",buttonVal);
+        newButton.text(buttonVal);
 
-    newCol.append(newButton);
-    newRow.append(newCol);
-    $(".search-log").append(newRow)
+        //layout elements
+        newRow = $("<div class='row'>");
+        newCol = $("<div class='col-sm-12'>");
+
+        newCol.append(newButton);
+        newRow.append(newCol);
+        $(".search-log").append(newRow)
+    }
 }
 
 $("#search-button").on("click",function(event){
