@@ -52,6 +52,10 @@ function fetchWeatherData(lat,lon){
         $("#wind-span").text(currentWeather.wind_speed)
         $("#uv-span").text(currentWeather.uvi)
 
+        //future forecast - 5 days only
+        for(var i=0;i<5;i++){
+            getForecastCard(data.daily[i])
+        }
     },function(obj,status,error){
         console.log("failure");
         console.log(obj);
@@ -60,7 +64,24 @@ function fetchWeatherData(lat,lon){
     })
 }
 
+function getForecastCard(daily){
 
+// <div class="card weather-card" >
+// <div class="card-header"><p>1/24/2021</p></div>
+// <img src="" class="card-img-top" alt="">
+// <ul class="list-group list-group-flush">
+//     <li class="list-group-item fs-6">Temp:</li>
+//     <li class="list-group-item">Humidity:</li>
+// </ul>
+// </div>
+
+var date =new Date(daily.dt*1000)
+
+var card = $("<div class='card weather-card'>");
+var header = $("<div class='card-header'><p>"+date.toLocaleDateString("en-US")+"</p></div>")
+var image = $("<img src='' class='card-img-top' alt=''>")
+
+}
 
 function buttonFactory(buttonVal){
     //check if button already exists
