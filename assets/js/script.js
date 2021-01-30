@@ -67,19 +67,26 @@ function fetchWeatherData(lat,lon){
 function getForecastCard(daily){
 
 // <div class="card weather-card" >
-// <div class="card-header"><p>1/24/2021</p></div>
-// <img src="" class="card-img-top" alt="">
-// <ul class="list-group list-group-flush">
-//     <li class="list-group-item fs-6">Temp:</li>
-//     <li class="list-group-item">Humidity:</li>
-// </ul>
+//  <div class="card-header"><p>1/24/2021</p></div>
+//  <img src="" class="card-img-top" alt="">
+//  <ul class="list-group list-group-flush">
+//         <li class="list-group-item fs-6">Temp:</li>
+//      <li class="list-group-item">Humidity:</li>
+//  </ul>
 // </div>
 
 var date =new Date(daily.dt*1000)
 
 var card = $("<div class='card weather-card'>");
-var header = $("<div class='card-header'><p>"+date.toLocaleDateString("en-US")+"</p></div>")
-var image = $("<img src='' class='card-img-top' alt=''>")
+var header = $("<div class='card-header'><p>"+date.toLocaleDateString("en-US")+"</p></div>");
+var image = $("<img src='' class='card-img-top' alt=''>");
+var tempList = $("<ul class='list-group list-group-flush'>");
+var tempLine = $("<li class='list-group-item fs-6'>Temp: "+daily.temp.day+"</li>")
+var humidLine =  $("<li class='list-group-item'>Humidity: "+daily.humidity+"</li>")
+tempList.append(tempLine,humidLine);
+card.append(header,image,tempList);
+
+$(".weather-bar").append(card);
 
 }
 
