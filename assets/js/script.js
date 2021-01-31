@@ -69,6 +69,7 @@ function getCurrentForecast(current){
     $("#humidity-span").text(current.humidity)
     $("#wind-span").text(current.wind_speed)
     $("#uv-span").text(current.uvi)
+    $("#icon-span").attr("src","http://openweathermap.org/img/wn/"+current.weather[0].icon+".png")
 
     $(".forecast-pane").removeClass("hidden");
 
@@ -93,13 +94,13 @@ $(".weather-bar").empty();
 
         var card = $("<div class='card weather-card'>");
         var header = $("<div class='card-header'><p>"+date.toLocaleDateString("en-US")+"</p></div>");
-        var image = $("<img src='' class='card-img-top' alt=''>");
+        var image = $("<img src='' class='card-img-top weather-img' alt=''>");
         var tempList = $("<ul class='list-group list-group-flush'>");
         var tempLine = $("<li class='list-group-item fs-6'>Temp: "+day.temp.day+"</li>")
         var humidLine =  $("<li class='list-group-item'>Humidity: "+day.humidity+"</li>")
         tempList.append(tempLine,humidLine);
         card.append(header,image,tempList);
-
+        image.attr("src","http://openweathermap.org/img/wn/"+day.weather[0].icon+".png")
         $(".weather-bar").append(card);
     }
 }
