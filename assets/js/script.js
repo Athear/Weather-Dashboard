@@ -50,6 +50,11 @@ function fetchWeatherData(lat,lon){
         //future forecast - 5 days only
         getForecastCard(data.daily)
         
+        //store data
+        localStorage.setItem("weatherFor",$("#city-name").text());
+        localStorage.setItem("weatherCurrent",JSON.stringify(data.current));
+        localStorage.setItem("weatherWeek",JSON.stringify(data.daily));
+
     },function(obj,status,error){
         console.log("failure");
         console.log(obj);
@@ -65,6 +70,7 @@ function getCurrentForecast(current){
     $("#wind-span").text(current.wind_speed)
     $("#uv-span").text(current.uvi)
 
+    $(".forecast-pane").removeClass("hidden");
 
 }
 
@@ -78,7 +84,9 @@ function getForecastCard(daily){
 //      <li class="list-group-item">Humidity:</li>
 //  </ul>
 // </div>
-    for(var i=0;i<5;i++){
+
+//get forcast for tomorrw+4
+    for(var i=1;i<6;i++){
         day = daily[i]
         var date =new Date(day.dt*1000)
 
@@ -92,6 +100,14 @@ function getForecastCard(daily){
         card.append(header,image,tempList);
 
         $(".weather-bar").append(card);
+    }
+}
+
+function getLastWeather(){
+    if(localStorage.getItem("weatherFor")){
+        $("#city-name").text(localStorage.getItem("weatherFor"));
+        getCurrentForecast(JSON.parse(localStorage.getItem("weatherCurrent")))
+        getForecastCard(JSON.parse(localStorage.getItem("weatherWeek")))
     }
 }
 
@@ -125,3 +141,6 @@ $("#search-button").on("click",function(event){
 $(".search-log").on("click","button",function(){
     fetchWeatherMain($(this).data("city-name"));
 })
+
+//load the requested weather
+getLastWeather();
