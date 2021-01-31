@@ -84,6 +84,7 @@ function getForecastCard(daily){
 //      <li class="list-group-item">Humidity:</li>
 //  </ul>
 // </div>
+$(".weather-bar").empty();
 
 //get forcast for tomorrw+4
     for(var i=1;i<6;i++){
@@ -103,13 +104,7 @@ function getForecastCard(daily){
     }
 }
 
-function getLastWeather(){
-    if(localStorage.getItem("weatherFor")){
-        $("#city-name").text(localStorage.getItem("weatherFor"));
-        getCurrentForecast(JSON.parse(localStorage.getItem("weatherCurrent")))
-        getForecastCard(JSON.parse(localStorage.getItem("weatherWeek")))
-    }
-}
+
 
 function buttonFactory(buttonVal){
     //check if button already exists
@@ -129,6 +124,19 @@ function buttonFactory(buttonVal){
     }
 }
 
+
+function getLastWeather(){
+    if(localStorage.getItem("weatherFor")){
+        $("#city-name").text(localStorage.getItem("weatherFor"));
+        getCurrentForecast(JSON.parse(localStorage.getItem("weatherCurrent")))
+        getForecastCard(JSON.parse(localStorage.getItem("weatherWeek")))
+    }
+}
+
+//load the requested weather
+getLastWeather();
+
+
 $("#search-button").on("click",function(event){
     event.preventDefault()
     var cityName = $("#city-serach").val()
@@ -141,6 +149,3 @@ $("#search-button").on("click",function(event){
 $(".search-log").on("click","button",function(){
     fetchWeatherMain($(this).data("city-name"));
 })
-
-//load the requested weather
-getLastWeather();
