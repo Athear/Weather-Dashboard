@@ -12,7 +12,7 @@ var apiKey = 'c50cfa9857ec1e54321df1ab3b472201'
 function fetchWeatherMain(cityName){
   
     //NOTE: this can be more specific, but we are only returning the top result
-    var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q="+cityName+"&limit=1&appid="+apiKey
+    var geoApiURL = "https://api.openweathermap.org/geo/1.0/direct?q="+cityName+"&limit=1&appid="+apiKey
 
     $.ajax({
         method:'GET',
@@ -80,7 +80,7 @@ if(current.uvi>7){
     $("#wind-span").text(current.wind_speed);
     $("#uv-span").text(current.uvi);
     $("#uv-span").addClass(UivClass);
-    $("#icon-span").attr("src","http://openweathermap.org/img/wn/"+current.weather[0].icon+".png");
+    $("#icon-span").attr("src","https://openweathermap.org/img/wn/"+current.weather[0].icon+".png");
 
     $(".forecast-pane").removeClass("hidden");
 
@@ -111,7 +111,7 @@ $(".weather-bar").empty();
         var humidLine =  $("<li class='list-group-item weather-box'>Humidity: "+day.humidity+"</li>")
         tempList.append(tempLine,humidLine);
         card.append(header,image,tempList);
-        image.attr("src","http://openweathermap.org/img/wn/"+day.weather[0].icon+".png")
+        image.attr("src","https://openweathermap.org/img/wn/"+day.weather[0].icon+".png")
         $(".weather-bar").append(card);
     }
 }
