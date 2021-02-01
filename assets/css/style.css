@@ -8,6 +8,21 @@
     display:inline-block
 }
 
+.uv-low{
+    color:white;
+    background-color:green;
+}
+
+.uv-med{
+    color:white;
+    background-color:orange;
+}
+
+.uv-high{
+    color:white;
+    background-color:red;
+}
+
 @media only screen and (max-width:768px){
     .weather-card{
         width:100%;

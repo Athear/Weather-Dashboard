@@ -65,11 +65,22 @@ function fetchWeatherData(lat,lon){
 
 function getCurrentForecast(current){
 
-    $("#temp-span").text(current.temp)
-    $("#humidity-span").text(current.humidity)
-    $("#wind-span").text(current.wind_speed)
-    $("#uv-span").text(current.uvi)
-    $("#icon-span").attr("src","http://openweathermap.org/img/wn/"+current.weather[0].icon+".png")
+//set UVI severity
+var UivClass;
+if(current.uvi>7){
+    UivClass = "uv-high";
+}else if(current.uvi>2){
+    UivClass = "uv-med";
+}else{
+    UivClass = "uv-low";
+}
+
+    $("#temp-span").text(current.temp);
+    $("#humidity-span").text(current.humidity);
+    $("#wind-span").text(current.wind_speed);
+    $("#uv-span").text(current.uvi);
+    $("#uv-span").addClass(UivClass);
+    $("#icon-span").attr("src","http://openweathermap.org/img/wn/"+current.weather[0].icon+".png");
 
     $(".forecast-pane").removeClass("hidden");
 
