@@ -1,11 +1,24 @@
 
 .weather-img{
     width:50px;
-    height:50px
+    height:50px;
+    margin-left: 5%;
 }
 .weather-card{
-    width:19%;
-    display:inline-block
+    width:18%;
+    margin:1%;
+    display:inline-block;
+    background-color:#3385ff;
+    border-style: solid;
+    border-color: #3385ff;
+
+}
+
+.weather-box{
+    background-color:#3385ff;
+    color:white;  
+    border-style: none;
+    
 }
 
 .uv-low{

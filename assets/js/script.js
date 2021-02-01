@@ -104,11 +104,11 @@ $(".weather-bar").empty();
         var date =new Date(day.dt*1000)
 
         var card = $("<div class='card weather-card'>");
-        var header = $("<div class='card-header'><p>"+date.toLocaleDateString("en-US")+"</p></div>");
-        var image = $("<img src='' class='card-img-top weather-img' alt=''>");
+        var header = $("<div class='card-header weather-box'><p>"+date.toLocaleDateString("en-US")+"</p></div>");
+        var image = $("<img src='' class='card-img-top weather-img weather-box' alt=''>");
         var tempList = $("<ul class='list-group list-group-flush'>");
-        var tempLine = $("<li class='list-group-item fs-6'>Temp: "+day.temp.day+"</li>")
-        var humidLine =  $("<li class='list-group-item'>Humidity: "+day.humidity+"</li>")
+        var tempLine = $("<li class='list-group-item fs-6 weather-box'>Temp: "+day.temp.day+"</li>")
+        var humidLine =  $("<li class='list-group-item weather-box'>Humidity: "+day.humidity+"</li>")
         tempList.append(tempLine,humidLine);
         card.append(header,image,tempList);
         image.attr("src","http://openweathermap.org/img/wn/"+day.weather[0].icon+".png")
