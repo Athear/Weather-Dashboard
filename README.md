@@ -12,7 +12,7 @@ Enter a city name in the search box and click search or enter. If a city is foun
 
 This implementation does not support multiple cities of the same name, and will collect data only for the first city of a given name. Due to how the API calls are structured, it will prioritize North American cities.
 
-![weather-dashboard](.\assets\images\weather-dashboard.png)
+![weather-dashboard](./assets/images/weather-dashboard.png)
 
 
 
@@ -27,3 +27,9 @@ Utilizes [OpenWeather API](https://openweathermap.org/)
 [Source repository](https://github.com/Athear/Weather-Dashboard)
 
 [Live link](https://athear.github.io/Weather-Dashboard/)
+
+
+
+## License
+
+Licensed under the [MIT](./LICENCE.txt) license
